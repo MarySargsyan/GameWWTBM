@@ -1,0 +1,44 @@
+﻿<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js">
+</script>
+@model IEnumerable<GameWWTBM.Models.Questions>
+@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('select.dropdown')
+            .dropdown()
+            ;
+    });
+</script>
+<form method="post" action="~/Questions/AllQuestions">
+    <div class="ui inverted vertical masthead center aligned segment">
+
+        <div class="ui text container">
+            <h1 style="margin-top: 5em" class="ui inverted header">
+                Добро пожалувать в игру <br /> "Кто хочет стать миллионером"
+            </h1>
+            <br />
+            <div class="ui form">
+                <div class="field">
+                    <select id="n" name="n" class="ui dropdown">
+                        <option value="">Выберите количество вопросов</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" style="margin-top: 3em; margin-bottom: 8em" class="ui huge primary button">
+                Новая игра
+                <i class="right arrow icon"></i>
+            </button>
+        </div>
+    </div>
+</form>>

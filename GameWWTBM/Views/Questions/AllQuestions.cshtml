@@ -1,0 +1,26 @@
+﻿<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js">
+</script>
+
+@model IEnumerable<GameWWTBM.Models.Questions>
+
+@{
+    Layout = null;
+}
+<div class="ui inverted vertical masthead center aligned segment">
+    @ViewBag.Fif
+    <div style="margin-top: 2em" class="ui text container">
+            @foreach (var item in Model)
+            {
+                <a href="~/Questions/Details/@item.Id" value="@item.Id" style="margin-top: 1em;" type="submit" class="ui huge primary button">@item.Text</a><br />
+                }
+
+    </div>
+</div>
+
+
+

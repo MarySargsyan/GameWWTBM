@@ -1,0 +1,34 @@
+﻿<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js">
+</script>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script>
+
+</script>
+@model GameWWTBM.Models.Questions
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+
+<div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui text container">
+        <h1 style="margin-top: 5em; margin-bottom: 1em" class="ui inverted header">@Model.Text</h1>
+            <form method="post" action="NOFif">
+                @foreach (Answers a in ViewBag.Answer)
+                {
+                    <button name="State" id="State" value="@a.State" style="margin-top: 1em;" type="submit" class="ui huge primary button">
+                        @a.Text
+                    </button>
+                    <br />
+                }
+            </form>
+
+    </div>
+</div>
+
