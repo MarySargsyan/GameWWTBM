@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameWWTBM.Models;
 using GameWWTBM.Repository;
+using GameWWTBM.Service;
 
 namespace GameWWTBM.Controllers
 {
@@ -14,14 +15,15 @@ namespace GameWWTBM.Controllers
     {
         private  ApplicationDbcontext _context;
 
-        private IQuestins _questins;
-        //public static int quantity;
+        //private readonly IQuestionsService _questinService;
         public static int points;
+        public static string Rights;
         public static int Fifty = 1;
 
-        public QuestionsController(ApplicationDbcontext context, IQuestins questins)
+        public static List<Questions> questions = new List<Questions>();
+        public QuestionsController(ApplicationDbcontext context)
         {
-            _questins = questins;
+            //_questinService = questions;
             _context = context;
         }
 
@@ -30,16 +32,72 @@ namespace GameWWTBM.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(int n)
+        public ActionResult Index(int? n)
         {
-            return RedirectToAction("AllQuestions", new { });
+            List<Questions> first = _context.Questions.ToList();
+
+            //сделать массив из first по id
+            List<int> ides = new List<int>();
+
+            foreach (var i in first)
+            {
+                ides.Add(i.Id);
+            }
+            //перемешать id
+            Random rand = new Random();
+            for (int i = ides.Count - 1; i >= 1; i--)
+            {
+                int j = rand.Next(i + 1);
+
+                int tmp = ides[j];
+                ides[j] = ides[i];
+                ides[i] = tmp;
+            }
+            //создать лист с найденными Questions по id
+            List<Questions> questions = new List<Questions>();
+            foreach(var i in ides)
+            {
+                if(questions.Count < n)
+                {
+                    questions.Add(_context.Questions.Find(i));
+                }
+            }
+            return RedirectToAction("AllQuestions", new { questions = questions});
         }
 
-        public ActionResult AllQuestions(int n)
+        public ActionResult AllQuestions()
         {
             List<Questions> questions = _context.Questions.ToList();
-            return View(questions);
 
+            if (Rights == null)
+            {
+                return View(questions);
+
+            }
+            else
+            { 
+                string[] items = Rights.Split(' ');
+                List<int> list = new List<int>();
+                foreach(var i in items)
+                {
+                    if(i != "")
+                    {
+                        list.Add(Convert.ToInt32(i));
+                    }
+                }
+                    for (int i = 0; i< list.Count; i++)
+                    {
+                        questions.Remove(_context.Questions.Find(list[i]));
+
+                    }
+                    if (questions.Count == 0)
+                    {
+                        return RedirectToAction("Win");
+
+                    }
+                return View(questions);
+
+            }
         }
         public ActionResult Details(int? id)
         {
@@ -56,11 +114,11 @@ namespace GameWWTBM.Controllers
             
         } 
         [HttpPost]
-        public ActionResult Details(int? State, string e)
+        public ActionResult Details(int? State, int? id, string e)
         {
             if (State == 2)
             {               
-                return RedirectToAction("Correct");
+                return RedirectToAction("Correct", new { id = id });
             }
             else if (State == 1)
             {
@@ -77,11 +135,11 @@ namespace GameWWTBM.Controllers
             return View(questions);
         }
         [HttpPost]
-        public ActionResult NOFif(int? State, string e)
+        public ActionResult NOFif(int? State, int? id, string e)
         {
             if (State == 2)
             {
-                return RedirectToAction("Correct");
+                return RedirectToAction("Correct", new { id = id });
             }
             else if (State == 1)
             {
@@ -94,11 +152,17 @@ namespace GameWWTBM.Controllers
         {
             points = 0;
             return View();
+        } 
+        public ActionResult Win()
+        {
+            points = 0;
+            return View();
         }
-        public ActionResult Correct()
+        public ActionResult Correct(int? id)
         {
             points = points + (1000000/10);
             ViewBag.points = points;
+            Rights = Rights + " " + id.ToString();
             return View();
         } 
         public ActionResult Fifti(int? id)
@@ -109,11 +173,11 @@ namespace GameWWTBM.Controllers
             return View(questionsl);
         }
         [HttpPost]
-        public ActionResult Fifti(int? State, string e)
+        public ActionResult Fifti(int? State, int? id, string e)
         {
             if (State == 2)
             {
-                return RedirectToAction("Correct");
+                return RedirectToAction("Correct", new { id = id });
             }
             else if (State == 1)
             {

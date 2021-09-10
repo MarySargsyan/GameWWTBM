@@ -1,5 +1,6 @@
 using GameWWTBM.Models;
 using GameWWTBM.Repository;
+using GameWWTBM.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace GameWWTBM
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddTransient<IQuestins, QuestionsRepository>();
+            services.AddTransient<IQuestionsService, QuestionsService>();
             services.AddDbContext<ApplicationDbcontext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
         }

@@ -12,12 +12,13 @@
     Layout = null;
 }
 <div class="ui inverted vertical masthead center aligned segment">
-    @ViewBag.Fif
+    @ViewBag.n
     <div style="margin-top: 2em" class="ui text container">
+
             @foreach (var item in Model)
             {
                 <a href="~/Questions/Details/@item.Id" value="@item.Id" style="margin-top: 1em;" type="submit" class="ui huge primary button">@item.Text</a><br />
-                }
+            }
 
     </div>
 </div>

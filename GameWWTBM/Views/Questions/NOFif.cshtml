@@ -19,15 +19,17 @@
 <div class="ui inverted vertical masthead center aligned segment">
     <div class="ui text container">
         <h1 style="margin-top: 5em; margin-bottom: 1em" class="ui inverted header">@Model.Text</h1>
-            <form method="post" action="NOFif">
-                @foreach (Answers a in ViewBag.Answer)
-                {
-                    <button name="State" id="State" value="@a.State" style="margin-top: 1em;" type="submit" class="ui huge primary button">
-                        @a.Text
-                    </button>
-                    <br />
-                }
-            </form>
+        <form method="post" action="NOFif">
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            @foreach (Answers a in ViewBag.Answer)
+            {
+                <button name="State" id="State" value="@a.State" style="margin-top: 1em;" type="submit" class="ui huge primary button">
+                    @a.Text
+                </button>
+                <br />
+            }
+        </form>
 
     </div>
 </div>

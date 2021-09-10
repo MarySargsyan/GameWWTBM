@@ -21,6 +21,7 @@
         <h1 style="margin-top: 5em; margin-bottom: 1em" class="ui inverted header">@Model.Text</h1>
        @ViewBag.Fif
             <form method="post" action="Details">
+                <input type="hidden" name="id" value="@Model.Id" />
                 <a name="fifbutton" href="~/Questions/Fifti/@Model.Id" style="margin-top: 1em;" class="ui inverted primary basic button fif">50/50</a><br />
                 @foreach (Answers a in ViewBag.Answers)
                 {

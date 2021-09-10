@@ -18,5 +18,7 @@ namespace GameWWTBM.Models
 
         }
 
+        public ApplicationDbcontext() : base() { }
+
     }
 }

@@ -16,6 +16,8 @@
     <div class="ui text container">
         <h1 style="margin-top: 5em; margin-bottom: 1em" class="ui inverted header">@Model.Text</h1>
         <form method="post" action="Details">
+            <input type="hidden" name="id" value="@Model.Id" />
+
             @ViewBag.Fif
             @foreach (Answers a in ViewBag.Answers)
             {

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWWTBM", "GameWWTBM\GameWWTBM.csproj", "{7D50E5F7-7A14-48FB-A54B-B36A2EB3B05A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWWTBM", "GameWWTBM\GameWWTBM.csproj", "{7D50E5F7-7A14-48FB-A54B-B36A2EB3B05A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tests", "Game.Tests\Game.Tests.csproj", "{0ECA73DD-F103-4F28-8DBE-B683D7613445}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7D50E5F7-7A14-48FB-A54B-B36A2EB3B05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D50E5F7-7A14-48FB-A54B-B36A2EB3B05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D50E5F7-7A14-48FB-A54B-B36A2EB3B05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ECA73DD-F103-4F28-8DBE-B683D7613445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ECA73DD-F103-4F28-8DBE-B683D7613445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ECA73DD-F103-4F28-8DBE-B683D7613445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ECA73DD-F103-4F28-8DBE-B683D7613445}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
