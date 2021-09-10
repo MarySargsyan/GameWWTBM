@@ -17,8 +17,10 @@ namespace GameWWTBM.Controllers
 
         //private readonly IQuestionsService _questinService;
         public static int points;
+        public static int quantity;
         public static string Rights;
         public static int Fifty = 1;
+         public static List<int> ides = new List<int>();
 
         public static List<Questions> questions = new List<Questions>();
         public QuestionsController(ApplicationDbcontext context)
@@ -34,41 +36,54 @@ namespace GameWWTBM.Controllers
         [HttpPost]
         public ActionResult Index(int? n)
         {
-            List<Questions> first = _context.Questions.ToList();
-
-            //сделать массив из first по id
-            List<int> ides = new List<int>();
-
-            foreach (var i in first)
+            if (n == null)
             {
-                ides.Add(i.Id);
+                return RedirectToAction("Index");
             }
-            //перемешать id
-            Random rand = new Random();
-            for (int i = ides.Count - 1; i >= 1; i--)
+            else
             {
-                int j = rand.Next(i + 1);
-
-                int tmp = ides[j];
-                ides[j] = ides[i];
-                ides[i] = tmp;
-            }
-            //создать лист с найденными Questions по id
-            List<Questions> questions = new List<Questions>();
-            foreach(var i in ides)
-            {
-                if(questions.Count < n)
+                quantity = Convert.ToInt32(n);
+                List<Questions> first = _context.Questions.ToList();
+                //сделать массив из first по id
+                foreach (var i in first)
                 {
-                    questions.Add(_context.Questions.Find(i));
+                    ides.Add(i.Id);
                 }
+                //перемешать id
+                Random rand = new Random();
+                for (int i = ides.Count - 1; i >= 1; i--)
+                {
+                    int j = rand.Next(i + 1);
+                    int tmp = ides[j];
+                    ides[j] = ides[i];
+                    ides[i] = tmp;
+                }
+
+                //создать лист с найденными Questions по id
+                List<Questions> questions = new List<Questions>();
+                foreach (var i in ides)
+                {
+                    if (questions.Count < n)
+                    {
+                        questions.Add(_context.Questions.Find(i));
+                    }
+                }
+                return RedirectToAction("AllQuestions");
+
             }
-            return RedirectToAction("AllQuestions", new { questions = questions});
         }
 
         public ActionResult AllQuestions()
         {
-            List<Questions> questions = _context.Questions.ToList();
+            List<Questions> questions = new List<Questions>();
+            foreach(var i in ides)
+            {
+                if(questions.Count < quantity)
+                {
+                    questions.Add(_context.Questions.Find(i));
 
+                }
+            }
             if (Rights == null)
             {
                 return View(questions);
@@ -160,7 +175,7 @@ namespace GameWWTBM.Controllers
         }
         public ActionResult Correct(int? id)
         {
-            points = points + (1000000/10);
+            points = points + (1000000/quantity);
             ViewBag.points = points;
             Rights = Rights + " " + id.ToString();
             return View();
