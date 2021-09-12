@@ -8,12 +8,19 @@ namespace GameWWTBM.Repository
 {
     public class QuestionsRepository : IQuestins
     {
-        //private readonly QuestionsRepository _Rep;
-        public QuestionsRepository()
+        private ApplicationDbcontext _context;
+
+        public QuestionsRepository( ApplicationDbcontext dbcontext)
         {
-            //_Rep = Rep;
+            _context = dbcontext;
         }
-        //public IEnumerable<Questions> AllQuestions => _Rep.AllQuestions;
+        public IEnumerable<Questions> AllQuestions() {
+            using(_context)
+            {
+                var questions = _context.Questions.ToList();
+                return questions;
+            }
+        }
 
     }
 

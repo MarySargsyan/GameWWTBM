@@ -14,8 +14,8 @@ namespace GameWWTBM.Controllers
     public class QuestionsController : Controller
     {
         private  ApplicationDbcontext _context;
+        private readonly IQuestionsService _questinService;
 
-        //private readonly IQuestionsService _questinService;
         public static int points;
         public static int quantity;
         public static string Rights;
@@ -23,9 +23,9 @@ namespace GameWWTBM.Controllers
          public static List<int> ides = new List<int>();
 
         public static List<Questions> questions = new List<Questions>();
-        public QuestionsController(ApplicationDbcontext context)
+        public QuestionsController(ApplicationDbcontext context, IQuestionsService questions)
         {
-            //_questinService = questions;
+            _questinService = questions;
             _context = context;
         }
 
@@ -43,7 +43,7 @@ namespace GameWWTBM.Controllers
             else
             {
                 quantity = Convert.ToInt32(n);
-                List<Questions> first = _context.Questions.ToList();
+                List<Questions> first = _questinService.AllQuestions().ToList();
                 //сделать массив из first по id
                 foreach (var i in first)
                 {
@@ -65,7 +65,7 @@ namespace GameWWTBM.Controllers
                 {
                     if (questions.Count < n)
                     {
-                        questions.Add(_context.Questions.Find(i));
+                        questions.Add(first.Where(x => x.Id == i).FirstOrDefault());
                     }
                 }
                 return RedirectToAction("AllQuestions");

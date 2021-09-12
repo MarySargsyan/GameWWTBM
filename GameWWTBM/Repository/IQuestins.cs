@@ -8,6 +8,6 @@ namespace GameWWTBM.Repository
 {
     public interface IQuestins
     {
-        //IEnumerable<Questions> AllQuestions { get; }
+        IEnumerable<Questions> AllQuestions();
     }
 }
